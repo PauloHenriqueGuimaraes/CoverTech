@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoverTech | Desenvolvimento de Software & Infraestrutura de TI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --text: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --success: #10b981;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --cover-color: #10b981; /* Verde para Cover */
+            --tech-color: #3b82f6; /* Azul para Tech */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Particles Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Header */
+        header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 0 50px;
+        }
+        
+        .header-content {
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .tech-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            color: var(--text);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 30px;
+            border: 3px solid;
+            border-image: linear-gradient(135deg, var(--cover-color), var(--tech-color)) 1;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3), 0 0 30px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .company-name {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        
+        .cover-part {
+            color: var(--cover-color);
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+        
+        .tech-part {
+            color: var(--tech-color);
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .header-content .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .typing-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            min-height: 60px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3), 0 4px 15px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--tech-color), var(--cover-color));
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.4), 0 10px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text);
+            display: inline-block;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--cover-color), var(--tech-color));
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        /* About */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+        
+        .about-text:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            text-align: justify;
+            color: var(--text-secondary);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--cover-color), var(--tech-color));
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+        
+        .service-card h3 {
+            color: var(--text);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .service-card h3 i {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .service-card li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .service-card li i {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 0.8rem;
+        }
+        
+        /* Skills */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--cover-color), var(--tech-color));
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .skill-category h3 {
+            color: var(--text);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .skill-category h3 i {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+        
+        .skills-list {
+            list-style-type: none;
+        }
+        
+        .skills-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .skills-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .skills-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .skills-list li i {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.2rem;
+        }
+        
+        /* Contact */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+        
+        .contact-info:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-info h3 {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .contact-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .footer-company-name {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .footer-cover {
+            color: var(--cover-color);
+        }
+        
+        .footer-tech {
+            color: var(--tech-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .footer-links a:hover {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .company-name {
+                font-size: 2.5rem;
+            }
+            
+            .header-content .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .typing-text {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-company-name {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--cover-color), var(--tech-color));
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--tech-color), var(--cover-color));
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="tech-badge">
+                    <i class="fas fa-code"></i> Cobertura Tecnológica Completa & Infraestrutura de TI
+                </div>
+                
+                <div class="profile-img floating">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                
+                <h1 class="company-name">
+                    <span class="cover-part">Cover</span><span class="tech-part">Tech</span>
+                </h1>
+                <p class="tagline">Soluções em Tecnologia da Informação</p>
+                <div class="typing-text" id="typing-text">
+                    <!-- Texto será inserido via JavaScript -->
+                </div>
+                <a href="#contato" class="btn">Solicitar Orçamento</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sobre a Empresa -->
+    <section id="sobre">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre a CoverTech</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Autônomo focado em Tecnologia da Informação onde presto serviço de Infraestrutura de TI onde as atividades são Manutenção, Servidor, Estrutura de Rede, Virtualização e entre outros projetos possíveis.</p>
+                    
+                    <p>Além disso desenvolvemos sistemas integrado com automação. Exemplo disso é possível medir temperatura de uma câmara fria e ser monitorado dentro do próprio sistema.</p>
+                    
+                    <p>Estudamos sobre inovações e desenvolvemos projetos para atender as dificuldades dos clientes.</p>
+
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3><i class="fas fa-server"></i> Infraestrutura de TI</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Manutenção de Equipamentos</li>
+                                <li><i class="fas fa-check"></i> Configuração de Servidores</li>
+                                <li><i class="fas fa-check"></i> Estrutura de Rede</li>
+                                <li><i class="fas fa-check"></i> Virtualização</li>
+                                <li><i class="fas fa-check"></i> Projetos Personalizados</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <h3><i class="fas fa-robot"></i> Sistemas com Automação</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Monitoramento em Tempo Real</li>
+                                <li><i class="fas fa-check"></i> Medição de Temperatura</li>
+                                <li><i class="fas fa-check"></i> Sistemas Integrados</li>
+                                <li><i class="fas fa-check"></i> Automação Industrial</li>
+                                <li><i class="fas fa-check"></i> Soluções Personalizadas</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <h3><i class="fas fa-lightbulb"></i> Inovação & Desenvolvimento</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Estudo de Novas Tecnologias</li>
+                                <li><i class="fas fa-check"></i> Projetos sob Demanda</li>
+                                <li><i class="fas fa-check"></i> Soluções para Dificuldades</li>
+                                <li><i class="fas fa-check"></i> Desenvolvimento Ágil</li>
+                                <li><i class="fas fa-check"></i> Foco no Cliente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competências -->
+    <section id="competencias">
+        <div class="container">
+            <div class="section-title">
+                <h2>Tecnologias</h2>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-laptop-code"></i> Desenvolvimento</h3>
+                    <ul class="skills-list">
+                        <li><i class="fab fa-html5"></i> HTML & CSS</li>
+                        <li><i class="fab fa-microsoft"></i> C# .NET</li>
+                        <li><i class="fab fa-js-square"></i> JavaScript</li>
+                        <li><i class="fas fa-database"></i> SQL</li>
+                        <li><i class="fas fa-server"></i> Banco de Dados</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-server"></i> Infraestrutura</h3>
+                    <ul class="skills-list">
+                        <li><i class="fas fa-network-wired"></i> Redes</li>
+                        <li><i class="fas fa-shield-alt"></i> Firewall PfSense</li>
+                        <li><i class="fas fa-tools"></i> Manutenção</li>
+                        <li><i class="fab fa-windows"></i> Windows Server</li>
+                        <li><i class="fas fa-cloud"></i> Virtualização</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contato</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Vamos conversar sobre seu projeto?</h3>
+                    <p>Entre em contato para discutir soluções em infraestrutura de TI ou desenvolvimento de sistemas automatizados.</p>
+                    <p><strong><i class="fab fa-whatsapp"></i> WhatsApp</strong><br>(19) 98997-7923</p>
+                    <a href="https://wa.me/5519989977923" class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Iniciar Conversa
+                    </a>
+                    <div class="contact-highlights">
+                        <span class="highlight">💡 Infraestrutura</span>
+                        <span class="highlight">🤝 Automação</span>
+                        <span class="highlight">🎯 Sistemas</span>
+                        <span class="highlight">⚡ Inovação</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-company-name">
+                    <span class="footer-cover">Cover</span><span class="footer-tech">Tech</span>
+                </div>
+                <p>Infraestrutura de TI • Sistemas com Automação • Desenvolvimento de Software</p>
+                <div class="footer-links">
+                    <a href="#sobre"><i class="fas fa-building"></i></a>
+                    <a href="#competencias"><i class="fas fa-cogs"></i></a>
+                    <a href="#contato"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p class="copyright">© 2024 CoverTech. Cobertura tecnológica completa para seu negócio.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Inicializar partículas
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: ["#10b981", "#3b82f6"] },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#3b82f6",
+                    opacity: 0.2,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+
+        // Efeito de digitação
+        const typingText = document.getElementById('typing-text');
+        const texts = [
+            "Cobertura Tecnológica Completa",
+            "Infraestrutura de TI Profissional", 
+            "Sistemas com Automação Inteligente"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function type() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+            } else {
+                typingText.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingSpeed = 1000;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingSpeed = 500;
+            }
+            
+            setTimeout(type, typingSpeed);
+        }
+
+        // Iniciar efeito de digitação
+        setTimeout(type, 1000);
+
+        // Smooth scrolling para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Adicionar classe de animação aos elementos quando visíveis
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animação
+        document.querySelectorAll('.skill-category, .about-text, .contact-info, .service-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
